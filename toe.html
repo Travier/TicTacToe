@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+    .grid-input {
+      width: 100px;
+      height: 100px;
+      color: black;
+      font-size: 50px;
+    }
+    </style>
+  </head>
+
+  <body>
+    <div id="app-container" class="container">
+      <!-- 1st Row -->
+      <div class="row">
+        <div class="col-sm-1">
+          <button onclick="clickedGridItem(0, 0)" id="00" class="grid-input"></button>
+        </div>
+
+        <div class="col-sm-1">
+          <button onclick="clickedGridItem(0, 1)" id="01" class="grid-input"></button>
+        </div>
+
+        <div class="col-sm-1">
+          <button onclick="clickedGridItem(0, 2)" id="02" class="grid-input"></button>
+        </div>
+      </div>
+
+      <!-- 2nd Row -->
+      <div class="row">
+        <div class="col-sm-1">
+          <button onclick="clickedGridItem(1, 0)" id="10" class="grid-input"></button>
+        </div>
+
+        <div class="col-sm-1">
+          <button onclick="clickedGridItem(1, 1)" id="11" class="grid-input"></button>
+        </div>
+
+        <div class="col-sm-1">
+          <button onclick="clickedGridItem(1, 2)" id="12" class="grid-input"></button>
+        </div>
+      </div>
+
+      <!-- 3rd Row -->
+      <div class="row">
+        <div class="col-sm-1">
+          <button onclick="clickedGridItem(2, 0)" id="20" class="grid-input"></button>
+        </div>
+
+        <div class="col-sm-1">
+          <button onclick="clickedGridItem(2, 1)" id="21" class="grid-input"></button>
+        </div>
+
+        <div class="col-sm-1">
+          <button onclick="clickedGridItem(2, 2)" id="22" class="grid-input"></button>
+        </div>
+      </div>
+
+      <br />
+
+      <!-- Control Row -->
+      <div class="row">
+        <div class="col-sm-1">
+          <button class="btn btn-default" onclick="clearGrid()">Clear</button>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="toe.js"></script>
+</html>
