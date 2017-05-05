@@ -1,12 +1,11 @@
 //A State Machine that has no control over inputs only the state of the grid
 //Only handles 3x3 grid
 function Grid() {
-  this.intialState = [
+  this.state = [
     [0, 0, 0],
     [0, 0, 0],
     [0, 0, 0]
   ];
-  this.state = $.extend({}, this.intialState);
 
   this.onStateChangeCallbacks = [];
 }
@@ -22,7 +21,13 @@ Grid.prototype.onStateChange = function (cb) {
 };
 
 Grid.prototype.clear = function () {
-  this.state = $.extend({}, this.intialState);
+  this.state = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+  ];
+
+  this.eventStateChanged();
 };
 
 Grid.prototype.set = function (row, column, value) {
