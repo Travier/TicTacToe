@@ -1,25 +1,3 @@
-//UTILITY FUNCTIONS
-
-function _foreach(arr, call) {
-  if(arr.length <= 0) {
-    return false;
-  }
-
-  for(var i = 0; i < arr.length; i++) {
-    var row = arr[i];
-
-    call(row);
-  }
-}
-
-//END UTILITY FUNCTIONS
-
-
-var users = {
-  1:"X",
-  2:"O"
-};
-
 var grid = [
   [0, 0, 0],
   [0, 0, 0],
