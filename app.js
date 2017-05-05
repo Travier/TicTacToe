@@ -1,3 +1,8 @@
+var gameState = {
+  concluded:false,
+  hasWinner:false,
+  winningLetter:false
+};
 var grid = new Grid();
 
 var inputs = [
@@ -92,22 +97,43 @@ function renderRow(row) {
   });
 }
 
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 function render() {
   for(var i = 0; i <= 2; i++) {
     renderRow(i);
   }
 
   if(checkForWinner("X")) {
+    gameState.concluded = true;
+    gameState.winningLetter = "X";
+    gameState.hasWinner = true;
     console.log("X has won the grid!");
   }
 
   if(checkForWinner("O")) {
+    gameState.concluded = true;
+    gameState.winningLetter = "O";
+    gameState.hasWinner = true;
     console.log("O has won the grid!");
   }
+
+  //check for a cats game
+  if(grid.findFreeSpaces().length <= 0) {
+    gameState.concluded = true;
+    gameState.hasWinner = false;
+  }
+
+  if(gameState.concluded) {
+
+  }
+}
+
+//types [lost, won]
+function showStatus(status, message) {
+
+}
+
+function hideStatus() {
+
 }
 
 //intial render
@@ -116,17 +142,3 @@ render();
 grid.onStateChange(function() {
   render();
 });
-
-//AI Stuff coming soon
-function computerTurn() {
-  var spaces = grid.findFreeSpaces();
-  var selection = getRandomInt(0, spaces.length - 1);
-  var coords = spaces[selection];
-
-  if(spaces.lenth <= 0) {
-    return;
-  }
-
-  console.log("Computer takes " + coords[0] + ":" + coords[1]);
-  grid.set(coords[0], coords[1], "O");
-}
