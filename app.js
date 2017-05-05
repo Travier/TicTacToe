@@ -1,8 +1,4 @@
-var grid = [
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 0]
-];
+var grid = new Grid();
 
 var inputs = [
   [$('#00'), $('#01'), $('#02')],
@@ -11,77 +7,60 @@ var inputs = [
 ]
 
 function clickedGridItem(row, col) {
-  set(row, col, 'X');
+  grid.set(row, col, 'X');
 
   computerTurn();
-}
-
-function get(row, col) {
-  var value = grid[row][col];
-
-  if(!value) {
-    return "";
-  }
-
-  return value;
-}
-
-function set(row, col, value) {
-  grid[row][col] = value;
-
-  //Render after state change
-  render();
 }
 
 function checkForWinner(letter) {
   var checks = [];
 
   //Diag
-  checks.push(isGridState(letter, [
+  checks.push(grid.hasTakenSpaces(letter, [
     [0,0],
     [1,1],
     [2,2]
   ]));
 
-  checks.push(isGridState(letter, [
+  checks.push(grid.hasTakenSpaces(letter, [
     [0,2],
     [1,1],
     [2,0]
   ]));
 
   //Horizontal
-  checks.push(isGridState(letter, [
+  checks.push(grid.hasTakenSpaces(letter, [
     [0,0],
     [0,1],
     [0,2]
   ]));
 
-  checks.push(isGridState(letter, [
+  checks.push(grid.hasTakenSpaces(letter, [
     [1,0],
     [1,1],
     [1,2]
   ]));
 
-  checks.push(isGridState(letter, [
+  checks.push(grid.hasTakenSpaces(letter, [
     [2,0],
     [2,1],
     [2,2]
   ]));
 
   //Veritcal
-  checks.push(isGridState(letter, [
+  checks.push(grid.hasTakenSpaces(letter, [
     [0,0],
     [1,0],
     [2,0]
   ]));
 
-  checks.push(isGridState(letter, [
+  checks.push(grid.hasTakenSpaces(letter, [
     [0,1],
     [1,1],
     [2,1]
   ]));
 
-  checks.push(isGridState(letter, [
+  checks.push(grid.hasTakenSpaces(letter, [
     [0,2],
     [1,2],
     [2,2]
@@ -96,45 +75,8 @@ function checkForWinner(letter) {
   return false;
 }
 
-function findFreeSpaces() {
-  var freeSpaces = [];
-  for(var r = 0; r <= 2; r++) {
-    for(var c = 0; c <= 2; c++) {
-      if(spaceIsFree(r, c)) {
-        freeSpaces.push([r, c]);
-      }
-    }
-  }
-
-  return freeSpaces;
-}
-
-function spaceIsFree(row, col) {
-  var value = grid[row][col];
-
-  return (value ? false : true);
-}
-
-function isGridState(letter, coords) {
-  var isState = true;
-  _foreach(coords, function(coord) {
-    var row = coord[0];
-    var col = coord[1];
-
-    if(get(row, col) !== letter) {
-      isState = false;
-    }
-  })
-
-  return isState;
-}
-
 function clearGrid() {
-  grid = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0]
-  ];
+  grid.clear();
 
   console.clear();
   render();
@@ -143,7 +85,7 @@ function clearGrid() {
 function renderRow(row) {
   var index = 0;
   _foreach(inputs[row], function(ele) {
-    var displayData = get(row, index);
+    var displayData = grid.get(row, index, " ");
     ele.html(displayData);
 
     index++;
@@ -170,11 +112,14 @@ function render() {
 
 //intial render
 render();
+//render again after state change
+grid.onStateChange(function() {
+  render();
+});
 
 //AI Stuff coming soon
-
 function computerTurn() {
-  var spaces = findFreeSpaces();
+  var spaces = grid.findFreeSpaces();
   var selection = getRandomInt(0, spaces.length - 1);
   var coords = spaces[selection];
 
@@ -183,5 +128,5 @@ function computerTurn() {
   }
 
   console.log("Computer takes " + coords[0] + ":" + coords[1]);
-  set(coords[0], coords[1], "O");
+  grid.set(coords[0], coords[1], "O");
 }
